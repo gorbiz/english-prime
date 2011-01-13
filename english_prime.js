@@ -23,13 +23,11 @@ function create_english_prime_helper() {
 
 function english_prime_helper() {
 
-	// XXX This is a hack
-	var tolerance = 2;
-
 	var forbidden_words = ["be", "is", "am", "are", "was", "were", "been", "being"];
 	var forbidden_strings = ["'s", "'m", "'re"];
 
-	var cleaned_text = document.body.innerText.toLowerCase().replace(/[\.\,\"\:\;\?\-\!]/ig, ' ').split(' ');
+	var text = document.body.textContent || document.body.innerText;
+	var cleaned_text = text.toLowerCase().replace(/[\.\,\"\:\;\?\-\!]/ig, ' ').split(' ');
 
 	var forbidden_words_found = [];
 	for (var i in cleaned_text) {
@@ -46,11 +44,6 @@ function english_prime_helper() {
 	}
 
 	var score = cleaned_text.length / forbidden_words_found.length;
-
-	var cssclass = "ok";
-	if (forbidden_words_found.length > tolerance) {
-		cssclass = "error";
-	}
 
 	/* The style is sort of a hack added for the bookmarklet */
 	var html = '<p style="display: block; position: fixed;top: 0;left: 0;color: #999;background: #eee;padding: 0.5em;z-index:10000;" class="' + cssclass + '"><strong>Score:</strong> ' + score + '<br />'
