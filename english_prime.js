@@ -23,24 +23,19 @@ function create_english_prime_helper() {
 
 function english_prime_helper() {
 
-	var forbidden_words = ["be", "is", "am", "are", "was", "were", "been", "being"];
-	var forbidden_strings = ["'s", "'m", "'re"];
+	var forbidden_words = ["be", "being", "been", "am", "is", "isn't", "are", "aren't", "was", "wasn't", "were", "weren't",
+            "I'm", "you're", "we're", "they're", "he's", "she's", "it's", "there's", "here's", "where's", "how's", "what's", "who's", "that's",
+            "ain't", "whatcha"];
+            // Nonestandard dialect "hain't" and "yer", not included since they have multiple meanings
 
 	var text = document.body.textContent || document.body.innerText;
-	var cleaned_text = text.toLowerCase().replace(/[\.\,\"\:\;\?\-\!]/ig, ' ').split(' ');
+	var cleaned_text = text.toLowerCase().replace(/[\.\,\"\:\;\?\-\!\n]/ig, ' ').split(' ');
 
-	var forbidden_words_found = [];
+        var forbidden_words_found = [];
 	for (var i in cleaned_text) {
-		if (forbidden_words.indexOf(cleaned_text[i]) > -1) {
-			forbidden_words_found.push(cleaned_text[i]);
-		}
-
-		for (var j in forbidden_strings) {
-			if (cleaned_text[i].indexOf(forbidden_strings[j]) > -1) {
-				forbidden_words_found.push(cleaned_text[i]);
-			}
-		}
-
+            if (forbidden_words.indexOf(cleaned_text[i]) > -1) {
+                forbidden_words_found.push(cleaned_text[i]);
+            }
 	}
 
 	var score = cleaned_text.length / forbidden_words_found.length;
